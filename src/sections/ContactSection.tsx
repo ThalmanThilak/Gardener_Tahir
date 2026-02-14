@@ -49,24 +49,26 @@ const ContactSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  // PATCHED SUBMISSION HANDLER: robust fallback, see PR details
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('submitting');
 
-    try {
-      const formData = new FormData(e.currentTarget);
-      const body = new URLSearchParams({
-        'form-name': 'contact',
-        'bot-field': '',
-        name: (formData.get('name') as string) || '',
-        email: (formData.get('email') as string) || '',
-        phone: (formData.get('phone') as string) || '',
-        address: (formData.get('address') as string) || '',
-        message: (formData.get('message') as string) || '',
-        referral: (formData.get('referral') as string) || '',
-      }).toString();
+    // Pre-capture the FormData for native POST fallback
+    const formData = new FormData(e.currentTarget);
+    const body = new URLSearchParams({
+      'form-name': 'contact',
+      'bot-field': '',
+      name: (formData.get('name') as string) || '',
+      email: (formData.get('email') as string) || '',
+      phone: (formData.get('phone') as string) || '',
+      address: (formData.get('address') as string) || '',
+      message: (formData.get('message') as string) || '',
+      referral: (formData.get('referral') as string) || '',
+    }).toString();
 
-      const response = await fetch('/', {
+    try {
+      const response = await fetch('/?no-cache=1', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body,
@@ -74,13 +76,66 @@ const ContactSection = () => {
       });
 
       if (response.ok || response.type === 'opaqueredirect') {
-        setFormStatus('success');
         formRef.current?.reset();
-      } else {
+        window.location.href = '/thank-you';
+        return;
+      }
+      if (response.status === 404 || !response.ok) {
+        const nativeForm = document.createElement('form');
+        nativeForm.method = 'POST';
+        nativeForm.action = '/thank-you';
+        nativeForm.style.display = 'none';
+        const nameInput = document.createElement('input');
+        nameInput.type = 'hidden';
+        nameInput.name = 'form-name';
+        nameInput.value = 'contact';
+        nativeForm.appendChild(nameInput);
+        const botInput = document.createElement('input');
+        botInput.type = 'hidden';
+        botInput.name = 'bot-field';
+        botInput.value = '';
+        nativeForm.appendChild(botInput);
+        for (const [key, value] of formData.entries()) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = String(value);
+          nativeForm.appendChild(input);
+        }
+        document.body.appendChild(nativeForm);
+        nativeForm.submit();
+        return;
+      }
+      setFormStatus('error');
+    } catch (err) {
+      // Fallback to native POST in case of AJAX error
+      try {
+        const nativeForm = document.createElement('form');
+        nativeForm.method = 'POST';
+        nativeForm.action = '/thank-you';
+        nativeForm.style.display = 'none';
+        const nameInput = document.createElement('input');
+        nameInput.type = 'hidden';
+        nameInput.name = 'form-name';
+        nameInput.value = 'contact';
+        nativeForm.appendChild(nameInput);
+        const botInput = document.createElement('input');
+        botInput.type = 'hidden';
+        botInput.name = 'bot-field';
+        botInput.value = '';
+        nativeForm.appendChild(botInput);
+        for (const [key, value] of formData.entries()) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = String(value);
+          nativeForm.appendChild(input);
+        }
+        document.body.appendChild(nativeForm);
+        nativeForm.submit();
+      } catch {
         setFormStatus('error');
       }
-    } catch {
-      setFormStatus('error');
     }
   };
 
@@ -102,7 +157,7 @@ const ContactSection = () => {
 
       <div className="relative w-full px-6 lg:px-12">
         <div className="max-w-[1800px] mx-auto">
-          <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}> 
             <span className="inline-block px-4 py-2 bg-garden-lime/20 rounded-full text-sm font-medium text-garden-lime mb-4 font-mono uppercase tracking-wider">
               {t.contact.badge}
             </span>
@@ -118,7 +173,7 @@ const ContactSection = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-            <div className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+            <div className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}> 
               <div className="space-y-4">
                 {contactInfo.map((item) => {
                   const Icon = item.icon;
@@ -178,7 +233,7 @@ const ContactSection = () => {
               </div>
             </div>
 
-            <div className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+            <div className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}> 
               <div className="bg-white rounded-4xl p-8 lg:p-10 shadow-garden">
                 {formStatus === 'success' ? (
                   <div className="flex flex-col items-center justify-center text-center py-12 space-y-6">
