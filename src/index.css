@@ -1,0 +1,199 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/montserrat/800.css';
+@import '@fontsource/space-mono/400.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 138 50% 97%;
+    --foreground: 160 67% 14%;
+    --card: 138 50% 97%;
+    --card-foreground: 160 67% 14%;
+    --popover: 138 50% 97%;
+    --popover-foreground: 160 67% 14%;
+    --primary: 160 67% 14%;
+    --primary-foreground: 138 50% 97%;
+    --secondary: 138 20% 90%;
+    --secondary-foreground: 160 67% 14%;
+    --muted: 138 20% 90%;
+    --muted-foreground: 150 8% 46%;
+    --accent: 82 100% 78%;
+    --accent-foreground: 160 67% 14%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 138 20% 85%;
+    --input: 138 20% 85%;
+    --ring: 82 100% 78%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-garden-mint text-garden-forest font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Button Styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-garden-lime text-garden-forest font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.02];
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-4 border-2 border-garden-forest text-garden-forest font-semibold rounded-full transition-all duration-300 hover:bg-garden-forest hover:text-garden-mint;
+  }
+  
+  .btn-outline-light {
+    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-garden-mint text-garden-mint font-medium rounded-full transition-all duration-300 hover:bg-garden-mint hover:text-garden-forest;
+  }
+  
+  /* Section Styles */
+  .section-light {
+    @apply bg-garden-mint;
+  }
+  
+  .section-dark {
+    @apply bg-garden-forest text-garden-mint;
+  }
+  
+  /* Card Styles */
+  .card-garden {
+    @apply bg-white rounded-4xl overflow-hidden shadow-garden transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  /* Image Styles */
+  .img-rounded {
+    @apply rounded-4xl object-cover;
+  }
+  
+  /* Accent Block */
+  .accent-block {
+    @apply bg-garden-lime rounded-xl;
+  }
+  
+  /* Text Styles */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Grain Overlay */
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+  
+  /* Lazy Loading */
+  .lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .lazy-image.loaded {
+    opacity: 1;
+  }
+  
+  /* Focus Styles for Accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-garden-lime focus:ring-offset-2 focus:ring-offset-garden-mint;
+  }
+  
+  /* Skip Link for Accessibility */
+  .skip-link {
+    @apply absolute top-0 left-0 p-4 bg-garden-forest text-garden-mint transform -translate-y-full transition-transform duration-200 focus:translate-y-0 z-50;
+  }
+}
+
+@layer utilities {
+  /* Animation Delays */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  /* Safe Area Padding for Mobile */
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    @apply border-2 border-garden-forest;
+  }
+}
