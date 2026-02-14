@@ -70,9 +70,10 @@ const ContactSection = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body,
+        redirect: 'manual',
       });
 
-      if (response.ok) {
+      if (response.ok || response.type === 'opaqueredirect') {
         setFormStatus('success');
         formRef.current?.reset();
       } else {
