@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Phone, Mail, MapPin, Send, CheckCircle, Shield, Clock, Loader2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { supabase } from '../lib/supabase';
 
 const contactInfo = [
   {
@@ -55,21 +54,23 @@ const ContactSection = () => {
     setFormStatus('submitting');
 
     const formData = new FormData(e.currentTarget);
+    formData.append('form-name', 'contact');
 
-    const { error } = await supabase.from('contact_submissions').insert({
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      address: formData.get('address') as string,
-      message: (formData.get('message') as string) || '',
-      referral: (formData.get('referral') as string) || '',
-    });
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+      });
 
-    if (error) {
+      if (response.ok) {
+        setFormStatus('success');
+        formRef.current?.reset();
+      } else {
+        setFormStatus('error');
+      }
+    } catch {
       setFormStatus('error');
-    } else {
-      setFormStatus('success');
-      formRef.current?.reset();
     }
   };
 
@@ -191,8 +192,14 @@ const ContactSection = () => {
                 ) : (
                   <form
                     ref={formRef}
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                   >
+                    <input type="hidden" name="form-name" value="contact" />
+                    <input type="hidden" name="bot-field" />
                     <h3 className="text-2xl font-heading font-bold text-garden-forest mb-6">
                       {t.contact.form.title}
                     </h3>
