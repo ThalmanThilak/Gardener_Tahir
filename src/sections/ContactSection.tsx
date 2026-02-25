@@ -150,16 +150,16 @@ const ContactSection = () => {
                 method="POST"
                 action="/"
                 data-netlify="true"
-                data-netlify-honeypot="bot-field"
+                data-netlify-honeypot="website"
               >
                 {/* Honeypot field - hidden from users */}
                 <p className="hidden" aria-hidden="true">
                   <label>
-                    Don't fill this out if you're human: 
-                    <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                    Don't fill this out if you're human:
+                    <input name="website" tabIndex={-1} autoComplete="off" />
                   </label>
                 </p>
-                
+
                 {/* Netlify form name - required */}
                 <input type="hidden" name="form-name" value="contact" />
 

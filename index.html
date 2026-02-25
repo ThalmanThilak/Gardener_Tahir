@@ -156,7 +156,7 @@
   </head>
   <body>
     <!-- Hidden static form for Netlify detection (must be present at build time) -->
-    <form name="contact" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <form name="contact" method="POST" action="/" data-netlify="true" data-netlify-honeypot="website" hidden>
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="tel" name="phone" />
@@ -164,7 +164,7 @@
       <textarea name="message"></textarea>
       <select name="referral"><option value=""></option></select>
       <input type="checkbox" name="privacy" />
-      <input name="bot-field" />
+      <input name="website" />
     </form>
 
     <div id="root"></div>
