@@ -84,7 +84,7 @@ const AboutSection = () => {
               {/* Image */}
               <div className="relative aspect-[16/10] rounded-4xl overflow-hidden shadow-garden">
                 <img
-                  src="/images/about-team.jpg"
+                  src="/images/Khan_about_Team.png"
                   alt="Gartenpflege Khan Team"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -170,31 +170,34 @@ const AboutSection = () => {
                 </p>
               </div>
 
-              {/* Contact Info */}
-              <div className="p-6 bg-garden-forest rounded-3xl text-garden-mint">
-                <h3 className="text-lg font-heading font-bold mb-4">
-                  {t.about.contactTitle}
-                </h3>
-                <div className="space-y-3">
-                  <a
-                    href="tel:+4915204460180"
-                    className="flex items-center gap-3 text-garden-mist hover:text-garden-lime transition-colors"
-                  >
-                    <Phone className="w-5 h-5" aria-hidden="true" />
-                    <span>01520 / 44 60 180</span>
-                  </a>
-                  <a
-                    href="mailto:gartenpflegekhan@gmail.com"
-                    className="flex items-center gap-3 text-garden-mist hover:text-garden-lime transition-colors"
-                  >
-                    <Mail className="w-5 h-5" aria-hidden="true" />
-                    <span>gartenpflegekhan@gmail.com</span>
-                  </a>
-                  <div className="flex items-center gap-3 text-garden-mist">
-                    <MapPin className="w-5 h-5" aria-hidden="true" />
-                    <span>Fohlenweide 2, 68723 Oftersheim</span>
-                  </div>
-                </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Centered Contact Info */}
+        <div className={`mt-12 lg:mt-20 flex justify-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="w-full max-w-lg p-6 bg-garden-forest rounded-3xl text-garden-mint">
+            <h3 className="text-lg font-heading font-bold mb-4">
+              {t.about.contactTitle}
+            </h3>
+            <div className="space-y-3">
+              <a
+                href="tel:+4915204460180"
+                className="flex items-center gap-3 text-garden-mist hover:text-garden-lime transition-colors"
+              >
+                <Phone className="w-5 h-5" aria-hidden="true" />
+                <span>01520 / 44 60 180</span>
+              </a>
+              <a
+                href="mailto:gartenpflegekhan@gmail.com"
+                className="flex items-center gap-3 text-garden-mist hover:text-garden-lime transition-colors"
+              >
+                <Mail className="w-5 h-5" aria-hidden="true" />
+                <span>gartenpflegekhan@gmail.com</span>
+              </a>
+              <div className="flex items-center gap-3 text-garden-mist">
+                <MapPin className="w-5 h-5" aria-hidden="true" />
+                <span>Fohlenweide 2, 68723 Oftersheim</span>
               </div>
             </div>
           </div>
