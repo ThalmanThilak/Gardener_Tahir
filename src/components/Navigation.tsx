@@ -35,11 +35,10 @@ const Navigation = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-garden-mint/95 backdrop-blur-md shadow-garden py-3'
-            : 'bg-transparent py-6'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? 'bg-garden-mint/95 backdrop-blur-md shadow-garden py-3'
+          : 'bg-white/90 backdrop-blur-sm shadow-sm py-4'
+          }`}
         role="navigation"
         aria-label="Hauptnavigation"
       >
@@ -55,10 +54,10 @@ const Navigation = () => {
               className="flex items-center gap-3 group"
               aria-label="Gartenpflege Khan - Zur Startseite"
             >
-              <img 
-                src="/images/GartenpflegeKhan_Logo.png" 
-                alt="Gartenpflege Khan Logo" 
-                className="h-12 lg:h-14 w-auto object-contain"
+              <img
+                src="/images/GartenpflegeKhan_Logo.png"
+                alt="Gartenpflege Khan Logo"
+                className="h-24 lg:h-36 w-auto object-contain"
               />
             </a>
 
@@ -78,19 +77,18 @@ const Navigation = () => {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className={`font-medium text-sm tracking-wide transition-colors duration-300 hover:text-garden-sage focus-ring rounded px-2 py-1 ${
-                    isScrolled ? 'text-garden-forest' : 'text-garden-forest'
-                  }`}
+                  className={`font-medium text-sm tracking-wide transition-colors duration-300 hover:text-garden-sage focus-ring rounded px-2 py-1 ${isScrolled ? 'text-garden-forest' : 'text-garden-forest'
+                    }`}
                 >
                   {link.label}
                 </button>
               ))}
-              
+
               {/* Language Toggle */}
               <div className="border-l border-garden-forest/20 pl-6">
                 <LanguageToggle />
               </div>
-              
+
               {/* CTA Button */}
               <a
                 href="tel:+4915204460180"
@@ -108,9 +106,8 @@ const Navigation = () => {
               <LanguageToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`p-2 rounded-xl transition-colors duration-300 focus-ring ${
-                  isScrolled ? 'text-garden-forest' : 'text-garden-forest'
-                }`}
+                className={`p-2 rounded-xl transition-colors duration-300 focus-ring ${isScrolled ? 'text-garden-forest' : 'text-garden-forest'
+                  }`}
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"
                 aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
@@ -129,9 +126,8 @@ const Navigation = () => {
       {/* Mobile Menu Overlay */}
       <div
         id="mobile-menu"
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
-          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
+        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+          }`}
         aria-hidden={!isMobileMenuOpen}
       >
         {/* Backdrop */}
@@ -140,12 +136,11 @@ const Navigation = () => {
           onClick={() => setIsMobileMenuOpen(false)}
           aria-hidden="true"
         />
-        
+
         {/* Menu Panel */}
         <div
-          className={`absolute top-0 right-0 w-full max-w-sm h-full bg-garden-mint shadow-2xl transition-transform duration-500 ${
-            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className={`absolute top-0 right-0 w-full max-w-sm h-full bg-garden-mint shadow-2xl transition-transform duration-500 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
         >
           <div className="flex flex-col h-full pt-24 pb-8 px-6">
             {/* Phone Number in Mobile Menu */}
@@ -177,7 +172,7 @@ const Navigation = () => {
                 ))}
               </ul>
             </nav>
-            
+
             {/* Mobile CTA */}
             <div className="pt-6 border-t border-garden-forest/10">
               <a

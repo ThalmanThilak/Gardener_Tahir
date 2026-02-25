@@ -24,9 +24,9 @@ button {
   cursor: pointer;
 }
 
-/* Image loading placeholder */
+/* Image loading placeholder - transparent so logos with alpha channels display correctly */
 img {
-  background-color: #F4FBF6;
+  background-color: transparent;
 }
 
 /* Prevent text selection on interactive elements */
