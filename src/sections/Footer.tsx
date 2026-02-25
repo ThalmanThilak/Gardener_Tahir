@@ -40,6 +40,8 @@ const Footer = () => {
     'Baumfällung & Baumpflege',
     'Beet- & Pflanzenpflege',
     'Pflasterarbeiten',
+    'Pflasterreinigung',
+    'Zauninstallation',
   ];
 
   const socialLinks = [
